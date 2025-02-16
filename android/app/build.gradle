@@ -6,8 +6,9 @@ plugins {
 }
 
 android {
+    namespace 'com.simform.flutter_credit_card'
     namespace = "com.example.payment_app"
-    //compileSdkVersion 33
+    compileSdkVersion 33
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -25,6 +26,8 @@ android {
         applicationId = "com.example.payment_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
+        minSdkVersion 21
+        targetSdkVersion 33
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion        
         versionCode = flutter.versionCode      

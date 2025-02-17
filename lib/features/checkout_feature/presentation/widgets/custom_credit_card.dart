@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:payment_app/core/common_widgets/custom_btn.dart';
+import 'package:payment_app/features/checkout_feature/presentation/views/thank_you_view.dart';
 
 class CustomCreditCard extends StatefulWidget {
   const CustomCreditCard({super.key});
@@ -13,6 +14,7 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
   String cardNumber = '', expiryDate = '', cardHolderName = '', cvvCode = '';
   bool showBackView = false;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
           onCreditCardWidgetChange: (value) {},
         ),
         CreditCardForm(
+          autovalidateMode: autovalidateMode,
           cardNumber: cardNumber,
           expiryDate: expiryDate,
           cardHolderName: cardHolderName,
@@ -52,7 +55,20 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
           width: screenWidth * 0.8,
           child: CustomBtn(
             text: 'Pay',
-            onPressed: () {},
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return ThankYouView();
+                  }),
+                );
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {});
+              }
+            },
             backgroundColor: Colors.green,
           ),
         ),

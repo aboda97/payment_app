@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
   flutter_credit_card: ^4.0.1
+  font_awesome_flutter: ^10.8.0
   
 
 dev_dependencies:

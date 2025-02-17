@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:payment_app/core/utils/app_styles.dart';
 
-AppBar buildAppBar({final String? title}) {
+AppBar buildAppBar({
+  final String? title,
+  final void Function()? onPressed,
+}) {
   return AppBar(
     leading: IconButton(
-      onPressed: () {},
+      onPressed: onPressed,
       icon: Icon(
         Icons.arrow_back,
         color: Colors.black,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
+//import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:payment_app/core/common_widgets/custom_btn.dart';
 import 'package:payment_app/features/checkout_feature/presentation/views/thank_you_view.dart';
 
@@ -23,6 +23,7 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
     return Column(
       children: [
         SizedBox(height: screenHeight * 0.02),
+        /*
         CreditCardWidget(
           cardNumber: cardNumber,
           expiryDate: expiryDate,
@@ -46,8 +47,10 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
             showBackView = creditCardModel.isCvvFocused;
             setState(() {});
           },
+          
           formKey: formKey,
         ),
+        */
         SizedBox(
           height: screenHeight * .03,
         ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:payment_app/core/utils/assets_path.dart';
 import 'package:payment_app/core/common_widgets/custom_btn.dart';
-import 'package:payment_app/features/checkout_feature/presentation/views/payment_details.dart';
+import 'package:payment_app/features/checkout_feature/data/repositories/payment_repo_implementation.dart';
+import 'package:payment_app/features/checkout_feature/presentation/manager/cubit/stripe_payment_cubit.dart';
 import 'package:payment_app/features/checkout_feature/presentation/widgets/order_info_item.dart';
+import 'package:payment_app/features/checkout_feature/presentation/widgets/payment_method_bottom_sheet.dart';
 import 'package:payment_app/features/checkout_feature/presentation/widgets/total_order_info_price.dart';
 
 class MyCardViewBody extends StatelessWidget {
@@ -56,13 +59,26 @@ class MyCardViewBody extends StatelessWidget {
             child: CustomBtn(
               text: 'Complete Payment',
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) {
+                //       return PaymentDetails();
+                //     },
+                //   ),
+                // );
+                showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
                     builder: (context) {
-                      return PaymentDetails();
-                    },
-                  ),
-                );
+                      return BlocProvider(
+                        create: (context) => StripePaymentCubit(
+                          PaymentRepoImplementation(),
+                        ),
+                        child: PaymentMethodBottomSheet(),
+                      );
+                    });
               },
               backgroundColor: Colors.green,
             ),

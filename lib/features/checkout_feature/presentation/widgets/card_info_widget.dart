@@ -9,8 +9,10 @@ class CardInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 22),
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(
+        vertical: 16,
+      ),
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(

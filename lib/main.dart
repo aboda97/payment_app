@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:payment_app/core/utils/api_keys.dart';
 import 'package:payment_app/features/checkout_feature/presentation/views/my_card_view.dart';
 
 void main() {
+  Stripe.publishableKey = ApiKeys.publisableKey;
   runApp(const CheckOutApp());
 }
 

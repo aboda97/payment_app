@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:payment_app/core/utils/api_keys.dart';
 import 'package:payment_app/core/utils/api_paths.dart';
@@ -14,10 +15,14 @@ class StripeService {
       PaymentIntentInputModel paymentIntentInputModel) async {
     var response = await apiServices.postData(
       body: paymentIntentInputModel.toJson(),
+      contentType: Headers.formUrlEncodedContentType,
       url: paymentIntentPath,
       token: ApiKeys.sercretKay,
     );
-    return response.data;
+    var paymentIntentData = PaymentIntentModel
+        .fromIdPi3MtwBwLkdIwHu7ix28a3tqPaObjectPaymentIntentAmount2000AmountCapturable0AmountDetailsTipAmountReceived0ApplicationNullApplicationFeeAmountNullAutomaticPaymentMethodsEnabledTrueCanceledAtNullCancellationReasonNullCaptureMethodAutomaticClientSecretPi3MtwBwLkdIwHu7ix28a3tqPaSecretYrKjuKribcBjcG8HVhfZluoGhConfirmationMethodAutomaticCreated1680800504CurrencyUsdCustomerNullDescriptionNullInvoiceNullLastPaymentErrorNullLatestChargeNullLivemodeFalseMetadataNextActionNullOnBehalfOfNullPaymentMethodNullPaymentMethodOptionsCardInstallmentsNullMandateOptionsNullNetworkNullRequestThreeDSecureAutomaticLinkPersistentTokenNullPaymentMethodTypesCardLinkProcessingNullReceiptEmailNullReviewNullSetupFutureUsageNullShippingNullSourceNullStatementDescriptorNullStatementDescriptorSuffixNullStatusRequiresPaymentMethodTransferDataNullTransferGroupNull(
+            response.data);
+    return paymentIntentData;
   }
 
   // #2 intentPaymentSheet ( paymentIntentClientSecret){}
@@ -35,7 +40,7 @@ class StripeService {
   // #3 presentPaymentSheet();
   // there i make display for paymentSheet
   Future displayPaymentSheet() async {
-    Stripe.instance.presentPaymentSheet();
+    await Stripe.instance.presentPaymentSheet();
   }
 
   // ## Method for make the previous Steps Auto

@@ -8,6 +8,7 @@ class CustomBtn extends StatelessWidget {
   final Color textColor;
   final double borderRadius;
   final EdgeInsetsGeometry padding;
+  final bool isLoading;
 
   const CustomBtn({
     super.key,
@@ -17,6 +18,7 @@ class CustomBtn extends StatelessWidget {
     this.textColor = Colors.white,
     this.borderRadius = 16.0,
     this.padding = const EdgeInsets.symmetric(vertical: 20.0),
+    this.isLoading = false,
   });
 
   @override
@@ -31,10 +33,12 @@ class CustomBtn extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
-      child: Text(
-        text,
-        style: AppStyles.style22,
-      ),
+      child: isLoading
+          ? CircularProgressIndicator()
+          : Text(
+              text,
+              style: AppStyles.style22,
+            ),
     );
   }
 }

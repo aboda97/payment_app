@@ -10,14 +10,14 @@ class StripeService {
   ApiServices apiServices = ApiServices();
   //------------------------------------------- MAIN STEPS -------------------------------------------------//
 
-  // #1 PaymentIntentObject createPaymentIntent (amount, currency){}
+  // #1 PaymentIntentObject createPaymentIntent (amount, currency, customerId){}
   Future<PaymentIntentModel> createPaymentIntent(
       PaymentIntentInputModel paymentIntentInputModel) async {
     var response = await apiServices.postData(
       body: paymentIntentInputModel.toJson(),
       contentType: Headers.formUrlEncodedContentType,
       url: paymentIntentPath,
-      token: ApiKeys.sercretKay,
+      token: ApiKeys.secretKey,
     );
     var paymentIntentData = PaymentIntentModel
         .fromIdPi3MtwBwLkdIwHu7ix28a3tqPaObjectPaymentIntentAmount2000AmountCapturable0AmountDetailsTipAmountReceived0ApplicationNullApplicationFeeAmountNullAutomaticPaymentMethodsEnabledTrueCanceledAtNullCancellationReasonNullCaptureMethodAutomaticClientSecretPi3MtwBwLkdIwHu7ix28a3tqPaSecretYrKjuKribcBjcG8HVhfZluoGhConfirmationMethodAutomaticCreated1680800504CurrencyUsdCustomerNullDescriptionNullInvoiceNullLastPaymentErrorNullLatestChargeNullLivemodeFalseMetadataNextActionNullOnBehalfOfNullPaymentMethodNullPaymentMethodOptionsCardInstallmentsNullMandateOptionsNullNetworkNullRequestThreeDSecureAutomaticLinkPersistentTokenNullPaymentMethodTypesCardLinkProcessingNullReceiptEmailNullReviewNullSetupFutureUsageNullShippingNullSourceNullStatementDescriptorNullStatementDescriptorSuffixNullStatusRequiresPaymentMethodTransferDataNullTransferGroupNull(
@@ -25,7 +25,10 @@ class StripeService {
     return paymentIntentData;
   }
 
-  // #2 intentPaymentSheet ( paymentIntentClientSecret){}
+  // #2 KeySecret createEphemeralKey(stripeVersion, customerId){}
+
+  // #3 intentPaymentSheet ( paymentIntentClientSecret/SetupPaymentSheetParameter ){}
+  //OR #3 intentPaymentSheet ( merchantDisplayName, intentClientSecret, ephemeralKeySecret ){}
   // there i make setup for paymentSheet
   Future initPaymentSheet({required String paymentIntentClientSecret}) async {
     await Stripe.instance.initPaymentSheet(
@@ -37,7 +40,7 @@ class StripeService {
     );
   }
 
-  // #3 presentPaymentSheet();
+  // #4 presentPaymentSheet();
   // there i make display for paymentSheet
   Future displayPaymentSheet() async {
     await Stripe.instance.presentPaymentSheet();
@@ -51,4 +54,21 @@ class StripeService {
         paymentIntentClientSecret: paymenIntentModel.clientSecret!);
     await displayPaymentSheet();
   }
+
+  Future<PaymentIntentModel> createCustomer(
+      PaymentIntentInputModel paymentIntentInputModel) async {
+    var response = await apiServices.postData(
+      body: paymentIntentInputModel.toJson(),
+      contentType: Headers.formUrlEncodedContentType,
+      url: customerPath,
+      token: ApiKeys.secretKey,
+    );
+    var paymentIntentData = PaymentIntentModel
+        .fromIdPi3MtwBwLkdIwHu7ix28a3tqPaObjectPaymentIntentAmount2000AmountCapturable0AmountDetailsTipAmountReceived0ApplicationNullApplicationFeeAmountNullAutomaticPaymentMethodsEnabledTrueCanceledAtNullCancellationReasonNullCaptureMethodAutomaticClientSecretPi3MtwBwLkdIwHu7ix28a3tqPaSecretYrKjuKribcBjcG8HVhfZluoGhConfirmationMethodAutomaticCreated1680800504CurrencyUsdCustomerNullDescriptionNullInvoiceNullLastPaymentErrorNullLatestChargeNullLivemodeFalseMetadataNextActionNullOnBehalfOfNullPaymentMethodNullPaymentMethodOptionsCardInstallmentsNullMandateOptionsNullNetworkNullRequestThreeDSecureAutomaticLinkPersistentTokenNullPaymentMethodTypesCardLinkProcessingNullReceiptEmailNullReviewNullSetupFutureUsageNullShippingNullSourceNullStatementDescriptorNullStatementDescriptorSuffixNullStatusRequiresPaymentMethodTransferDataNullTransferGroupNull(
+            response.data);
+    return paymentIntentData;
+  }
+
+
+  
 }
